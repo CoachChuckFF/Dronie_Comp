@@ -148,14 +148,6 @@ class ArtnetServer{
       DronieState state = DronieState.fromPoll(Mac(reply.mac), ArtnetPollReplyPacket(gram.data));
       Mac mac = Mac(reply.mac);
 
-      print("\n\n");
-      print("[Reply] ${gram.address}");
-      print("[OWNER] ${state.owner}");
-      print("[NAME] ${reply.longName}");
-      print("[SN] ${state.sn}");
-      print("[MAC] ${reply.mac}");
-      print("\n\n");
-
       devices[Mac(reply.mac)] = ArtnetStateData(mac: mac, ip: gram.address, strength: lives, state: state);
     } 
 
@@ -215,9 +207,9 @@ class ArtnetServer{
 
   Stream<Map<Mac, ArtnetStateData>> listenToServer() async* {
     while (true) {
-      await Future.delayed(Duration(milliseconds: pollIntervalMS));
+      await Future.delayed(Duration(milliseconds: 100));
 
-      yield devices;
+      yield Map.from(devices);
     }
   }
 

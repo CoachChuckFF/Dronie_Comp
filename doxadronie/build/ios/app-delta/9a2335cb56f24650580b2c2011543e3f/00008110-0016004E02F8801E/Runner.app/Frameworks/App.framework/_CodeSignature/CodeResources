@@ -42,7 +42,7 @@
 		</data>
 		<key>flutter_assets/assets/images/icons/foreground_icon.png</key>
 		<data>
-		tKi0QHN5oawA6rwP9EFia3cdNYg=
+		PvTuye1LHbMTNVoYKHmRvXmnxZg=
 		</data>
 		<key>flutter_assets/assets/images/icons/full_icon.png</key>
 		<data>
@@ -50,15 +50,7 @@
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
-		33xe6rFwPlxRnZOgZWsODADpUI4=
-		</data>
-		<key>flutter_assets/isolate_snapshot_data</key>
-		<data>
-		ELluN2aQ5lXx4NZnJlBUXyZEfGo=
-		</data>
-		<key>flutter_assets/kernel_blob.bin</key>
-		<data>
-		TpnurOi9puUsIDHGuXA7jDb5kZs=
+		5ynzHIqBRYWlbws9VToot0/AM5M=
 		</data>
 		<key>flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf</key>
 		<data>
@@ -79,10 +71,6 @@
 		<key>flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf</key>
 		<data>
 		av8sV5vmKAK06oYffiKJaTt/wwo=
-		</data>
-		<key>flutter_assets/vm_snapshot_data</key>
-		<data>
-		BICKLyZmEDX0yMJrQwYDz3tKwt8=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -157,11 +145,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tKi0QHN5oawA6rwP9EFia3cdNYg=
+			PvTuye1LHbMTNVoYKHmRvXmnxZg=
 			</data>
 			<key>hash2</key>
 			<data>
-			nVHi1p3sbl+U8/9s6woCGpDo87Yheo2iMDjjO82ZfPo=
+			i9jn9FckUHGyjQWn3UuinazOECSYM41FPTOJDC4TtKs=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/icons/full_icon.png</key>
@@ -179,33 +167,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			33xe6rFwPlxRnZOgZWsODADpUI4=
+			5ynzHIqBRYWlbws9VToot0/AM5M=
 			</data>
 			<key>hash2</key>
 			<data>
-			0E0I/gLatnGI9y4elyWPSg2LWYJSPgLt6hMvgJD5+rQ=
-			</data>
-		</dict>
-		<key>flutter_assets/isolate_snapshot_data</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ELluN2aQ5lXx4NZnJlBUXyZEfGo=
-			</data>
-			<key>hash2</key>
-			<data>
-			d5Zhq5S+3ylGF8osqx2M/nYmzI/1w4FDUIjGiKWFaOc=
-			</data>
-		</dict>
-		<key>flutter_assets/kernel_blob.bin</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			TpnurOi9puUsIDHGuXA7jDb5kZs=
-			</data>
-			<key>hash2</key>
-			<data>
-			fMEVQA2/ENGrrnwRb7Ph/51FagzfBNg6h9/NzvHvtWY=
+			9qIxiSxREWw9aKzMrHYMjNGtpTA+UJXKDbJegOgWCtE=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf</key>
@@ -261,17 +227,6 @@
 			<key>hash2</key>
 			<data>
 			ZZYRESoiniGZezamJw1OtQs4vulud5sBVPdG5GVfpAQ=
-			</data>
-		</dict>
-		<key>flutter_assets/vm_snapshot_data</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			BICKLyZmEDX0yMJrQwYDz3tKwt8=
-			</data>
-			<key>hash2</key>
-			<data>
-			dW/lW8/DGE7kqgVOIL22hio/M/WrH8+bodAoyvhyXsU=
 			</data>
 		</dict>
 	</dict>

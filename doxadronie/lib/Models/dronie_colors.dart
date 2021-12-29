@@ -5,5 +5,5 @@ class DColors {
   static const Color brightGreen = Color(0xFF6BFF75);
   static const Color darkGreen = Color(0xFF192B21);
   static const Color red = Color(0xFFFB684E);
-  static const Color white = Color(0xFFFFFFFF);
+  static const Color white = Color(0xAAFFFFFF);
 }

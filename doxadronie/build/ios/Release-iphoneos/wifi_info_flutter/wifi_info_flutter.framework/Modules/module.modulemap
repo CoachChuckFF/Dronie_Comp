@@ -1,0 +1,6 @@
+framework module wifi_info_flutter {
+  umbrella header "wifi_info_flutter-umbrella.h"
+
+  export *
+  module * { export * }
+}
