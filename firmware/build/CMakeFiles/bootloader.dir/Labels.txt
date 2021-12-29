@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/Users/drkrueger/Work/Dronies/firmware/build/CMakeFiles/bootloader
+/Users/drkrueger/Work/Dronies/firmware/build/CMakeFiles/bootloader.rule
+/Users/drkrueger/Work/Dronies/firmware/build/CMakeFiles/bootloader-complete.rule
+/Users/drkrueger/Work/Dronies/firmware/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/Users/drkrueger/Work/Dronies/firmware/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/Users/drkrueger/Work/Dronies/firmware/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/Users/drkrueger/Work/Dronies/firmware/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/Users/drkrueger/Work/Dronies/firmware/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/Users/drkrueger/Work/Dronies/firmware/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/Users/drkrueger/Work/Dronies/firmware/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

@@ -1,0 +1,171 @@
+NO FUCKING SPACES IN THE FILES
+
+Files
+    components
+        Action Manager
+            Globals
+                CHANGE
+        Connection Manager
+            Globals
+                CONNECTIONS
+            Network Manager
+            EZ Connect Manager
+        UI Manager
+            Indication Manager
+            Button Manager
+        Lighting Manager
+            Protocol Manager
+                Globals 
+                    DMX[513]
+            Artnet Manager
+            sACN Manager
+            DMX Manager
+        Storage Manager
+            NVS Manager
+                Globals
+                    DMX[513]
+                Structs
+                External Functions
+
+            VFS Manager
+                Globals
+
+            Log Manager
+                Globals
+                Structs
+                External Functions
+                    append_log
+                    clear_log
+                    dump_log
+        OTA Manager
+        Globals
+            errors.h
+            actions.h
+            keys.h
+            configurations.h
+    main
+
+Blizzard Defines
+    enable
+    disable
+
+    send
+    receive
+
+    high
+    low
+
+    true
+    false
+
+    data u8
+    data u16
+    data u32
+    data string
+
+    + all the following
+
+Actions
+    change general config
+    get general config
+    get connection info
+    write file
+    read file
+    delete file
+    configure ethernet
+    configure wifi
+    change active protocol
+    configure artnet
+    configure sacn
+    get log
+    get device info
+    ota
+    reboot
+    reset
+
+Errors
+    nvs error
+    vfs error
+    network error
+
+Keys
+    reset
+
+    device name
+
+    ethernet dhcp
+    ethernet ip
+    ethernet netmask
+    ethernet gateway
+
+    wifi disable on ethernet
+
+    ssid
+    pass
+    wifi dhcp
+    wifi ip
+    wifi netmask
+    wifi gateway
+
+    ap pass
+
+    active protocol
+
+    artnet net
+    artnet subnet
+    artnet universe
+
+    sacn universe
+
+Styling
+    Defines THIS_IS_A_DEFINE
+    Globals This_Is_A_Global
+    Internal functions void internalFunction()
+    Internal vars thisIsAnInternalVar
+    External functions void access_me_anywhere()
+    External vars (params) this_is_a_param
+    Structs ThisIsAStruct
+
+    Tags Main Manager
+    Error "This is an error message - extra: reason"
+    Info "This is an info message./..."
+    Files this_is_a_file.c/h
+
+    C for vars all in the front
+
+    function name: action_manager_thing
+    names: action then thing
+
+    /*
+    * Function: this_is_function(uint8_t this_is_param)
+    * ----------------------------
+    *
+    * Short info on function
+    *
+    * returns: ERROR SUCCESS
+    */
+
+    dumps - printf
+    errors - ESP_LOGE
+    else - ESP_LOGI
+    log - TBD
+Reminders
+    Hi!
+
+    You may have to change device it flashes to: 
+
+        These are close, use the command to find the actual device path: ls /dev/tty*
+        linux /dev/ttyUSBX
+        mac /dev/tty.usbserialX
+
+
+    If you are me and forgot to toggle some menuconfig options here they are!
+
+    Component Config -> Blizzard Ethernet * change to LAN
+    Component Config -> ESP32 Specific * change clock to 240MHz
+    Component Config -> FAT FS * allow long filesnames in stack
+    Component Config -> Wear Leveling * change to 512 bytes
+    Component Config -> FreeRTOS * change Tick Rate to 1000
+    Component Config -> ESP System Settings * turn off watchdogs
+    Component Config -> Driver configurations -> SPI configurations * SPI ISR not in IRAM
+    Partition Table -> * Toggle on Custom CVS for partitions

@@ -1,0 +1,8 @@
+detect_high B 0000008c 
+detect_low B 00000090 
+detected T 00000054 
+entry T 00000000 
+held_count B 00000098 
+last_read B 0000009c 
+wake_up T 00000080 
+wakeup_count B 00000094 

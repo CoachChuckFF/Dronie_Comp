@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ufwb version="1.17">
+    <grammar name="BPF grammar" start="id:2" author="Christian" fileextension="bpf">
+        <description>Grammar for BPF files</description>
+        <scripts>
+            <script name="FullOrNah" type="Grammar" id="73">
+                <source language="Lua">function init()
+	print &quot;hello init&quot;
+end
+
+function processGrammar(grammar)
+	print &quot;hello grammar&quot;
+end
+
+function terminate()
+	print &quot;end of processing&quot;
+end
+synalyzeitscript://www.synalysis.net/Scripts/HexStringLength.script</source>
+            </script>
+        </scripts>
+        <structure name="BPF file" id="2" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structure name="Header" id="3" length="596">
+                <string name="Magic" mustmatch="yes" id="4" strokecolor="FEFFFF" fillcolor="FF2600" type="fixed-length" length="8" encoding="ISO_8859-1:1987">
+                    <fixedvalues>
+                        <fixedvalue name="Magic" value="Blizzard"/>
+                    </fixedvalues>
+                </string>
+                <number name="Total Frames" id="5" strokecolor="FEFFFF" fillcolor="FF9300" type="integer" length="32" lengthunit="bit" endian="little"/>
+                <number name="Total Time" id="6" strokecolor="FEFFFF" fillcolor="FEFB00" type="integer" length="32" lengthunit="bit" endian="little"/>
+                <number name="Starting Delay" id="7" strokecolor="FEFFFF" fillcolor="8DF900" type="integer" length="32" lengthunit="bit" endian="little"/>
+                <string name="Name" id="8" strokecolor="FEFFFF" fillcolor="00F900" type="fixed-length" length="64" encoding="ISO_8859-1:1987"/>
+                <structure name="Starting DMX" id="38" length="512" strokecolor="FEFFFF" fillcolor="A9A9A9"/>
+            </structure>
+            <structure name="Frame" id="13" length="0" alignment="1" repeatmin="0" repeatmax="-1">
+                <string name="Magic" mustmatch="yes" id="14" strokecolor="FEFFFF" fillcolor="00F900" type="fixed-length" length="4" encoding="ISO_8859-1:1987">
+                    <fixedvalues>
+                        <fixedvalue name="Magic" value="Fram"/>
+                    </fixedvalues>
+                </string>
+                <number name="Delay" id="15" strokecolor="FEFFFF" fillcolor="00FA92" type="integer" length="4" endian="little"/>
+                <number name="Diff Count" id="16" strokecolor="FEFFFF" fillcolor="00FCFF" repeatmin="0" type="integer" length="2" endian="little"/>
+                <scriptelement name="FullOrNah" id="17" strokecolor="FEFFFF" fillcolor="0096FF">
+                    <script name="unnamed" type="Generic">
+                        <source language="Lua">results = currentMapper:getCurrentResults()
+lastResult = results:getLastResult()
+value = lastResult:getValue()
+count = value:getUnsigned()
+
+diffs = currentStructure:getElementByName('Diffs'):getStructure()
+part = diffs:getElementByName('Part'):getStructure()
+whole = diffs:getElementByName('Whole'):getStructure()
+
+
+if (count == 0xFFFF) then
+	-- Full Frame
+	part:setRepeatMin(&quot;0&quot;)
+	part:setRepeatMax(&quot;0&quot;)
+	
+	whole:setRepeatMin(&quot;1&quot;)
+	whole:setRepeatMax(&quot;1&quot;)
+else
+	-- Partial Frame
+	part:setRepeatMin(&quot;0&quot;)
+	part:setRepeatMax(&quot;0xFFFE&quot;)
+
+	whole:setRepeatMin(&quot;0&quot;)
+	whole:setRepeatMax(&quot;0&quot;)
+end
+
+</source>
+                    </script>
+                </scriptelement>
+                <structure name="Diffs" id="18" length="0" strokecolor="FEFFFF">
+                    <structure name="Part" id="19" repeat="id:16" repeatmin="0" repeatmax="65534">
+                        <number name="Address" id="20" strokecolor="FEFFFF" fillcolor="9437FF" type="integer" length="2" endian="little"/>
+                        <number name="Value" id="21" strokecolor="FEFFFF" fillcolor="FF40FF" type="integer" length="2" endian="little"/>
+                    </structure>
+                    <structure name="Whole" id="23" length="0" repeatmin="0" repeatmax="0">
+                        <structure name="DMX" id="25" length="512" strokecolor="FFFFFF" fillcolor="FF2F92"/>
+                    </structure>
+                </structure>
+            </structure>
+            <structure name="Footer" id="30">
+                <string name="Magic" id="31" strokecolor="FEFFFF" fillcolor="FF89D8" type="fixed-length" length="16">
+                    <fixedvalues>
+                        <fixedvalue name="Magic" value="This is the end."/>
+                    </fixedvalues>
+                </string>
+            </structure>
+        </structure>
+    </grammar>
+</ufwb>

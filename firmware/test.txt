@@ -1,0 +1,36 @@
+    WAV file [0] (0)
+    {
+        RIFFHEADER [0] (0)
+        {
+            groupID: "RIFF" [0]
+            size: 4446 [0]
+            riffType: "WAVE" [0]
+        }
+        Chunks [0] (12)
+        {
+            FormatChunk [0] (12)
+            {
+                chunkID: Identifier: "fmt " [0]
+                chunkSize: 16 [0]
+                Contents [0] (20)
+                {
+                    Compression code: PCM/uncompressed: 1 [0]
+                    Number of Channels: 1 [0]
+                    Sample rate: 44100 [0]
+                    Average bytes per Second: 44100 [0]
+                    Block align: 1 [0]
+                    Significant bits per Sample: 8 [0]
+                }
+            }
+            DataChunk [0] (36)
+            {
+                chunkID: "data" [0]
+                chunkSize: 4410 [0]
+                Contents [0] (44)
+                {
+                    Samples: 7F 8E 9C AA B7 C2 CD D5 DD E2 E5 E6 ... [0]
+                }
+            }
+        }
+    }
+ }

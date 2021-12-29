@@ -1,0 +1,43 @@
+{
+    "files.associations": {
+        "type_traits": "c",
+        "typeinfo": "c",
+        "blizzard_connection_manager.h": "c",
+        "blizzard_dmx_manager.h": "c",
+        "blizzard_protocol_manager.h": "c",
+        "blizzard_vfs_manager.h": "c",
+        "stdlib.h": "c",
+        "blizzard_timer_manager.h": "c",
+        "blizzard_action_manager.h": "c",
+        "blizzard_nvs_manager.h": "c",
+        "blizzard_battery_manager.h": "c",
+        "blizzard_ui_manager.h": "c",
+        "blizzard_generators.h": "c",
+        "__locale": "c",
+        "blizzard_debuggers.h": "c",
+        "inttypes.h": "c",
+        "__string": "c",
+        "string": "c",
+        "string_view": "c",
+        "blizzard_show_manager.h": "c",
+        "blizzard_simple_ui_manager.h": "c",
+        "chrono": "c",
+        "complex": "c",
+        "__bit_reference": "c",
+        "algorithm": "c",
+        "bitset": "c",
+        "unordered_map": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "array": "c",
+        "iterator": "c",
+        "memory": "c",
+        "vector": "c",
+        "blizzard_artnet_manager.h": "c"
+    },
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "python.pythonPath": "/usr/local/bin/python3"
+}

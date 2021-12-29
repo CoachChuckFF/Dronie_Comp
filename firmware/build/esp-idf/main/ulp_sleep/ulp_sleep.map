@@ -1,0 +1,40 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000000000000 0x0000000000000200 rw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD CMakeFiles/ulp_sleep.dir/blizzard_sleep.ulp.S.obj
+
+.text           0x0000000000000000       0x8c load address 0x000000000000000c
+ *(.text)
+ .text          0x0000000000000000       0x8c CMakeFiles/ulp_sleep.dir/blizzard_sleep.ulp.S.obj
+                0x0000000000000000                entry
+                0x0000000000000054                detected
+                0x0000000000000080                wake_up
+
+.data           0x000000000000008c        0x0 load address 0x0000000000000098
+                0x000000000000008c                . = ALIGN (0x4)
+ *(.data)
+ .data          0x000000000000008c        0x0 CMakeFiles/ulp_sleep.dir/blizzard_sleep.ulp.S.obj
+
+.bss            0x000000000000008c       0x14 load address 0x0000000000000098
+                0x000000000000008c                . = ALIGN (0x4)
+ *(.bss)
+ .bss           0x000000000000008c       0x14 CMakeFiles/ulp_sleep.dir/blizzard_sleep.ulp.S.obj
+                0x000000000000008c                detect_high
+                0x0000000000000090                detect_low
+                0x0000000000000094                wakeup_count
+                0x0000000000000098                held_count
+                0x000000000000009c                last_read
+
+.header         0x00000000000000a0        0xc load address 0x0000000000000000
+                0x00000000000000a0        0x4 LONG 0x706c75
+                0x00000000000000a4        0x2 SHORT 0xc LOADADDR (.text)
+                0x00000000000000a6        0x2 SHORT 0x8c SIZEOF (.text)
+                0x00000000000000a8        0x2 SHORT 0x0 SIZEOF (.data)
+                0x00000000000000aa        0x2 SHORT 0x14 SIZEOF (.bss)
+OUTPUT(ulp_sleep elf32-esp32ulp)
