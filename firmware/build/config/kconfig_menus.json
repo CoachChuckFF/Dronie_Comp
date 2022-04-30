@@ -714,6 +714,16 @@
                 "range": null,
                 "title": "Reserve RTC FAST memory for custom purposes",
                 "type": "bool"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "Perform the startup flow recommended by XMC. Please consult XMC for the details of this flow.\nXMC chips will be forbidden to be used, when this option is disabled.\n\nDON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU ARE DOING.",
+                "id": "BOOTLOADER_FLASH_XMC_SUPPORT",
+                "name": "BOOTLOADER_FLASH_XMC_SUPPORT",
+                "range": null,
+                "title": "Enable the support for flash chips of XMC (READ HELP FIRST)",
+                "type": "bool"
             }
         ],
         "depends_on": null,
@@ -934,6 +944,16 @@
                 "range": null,
                 "title": "Secure boot public signature verification key",
                 "type": "string"
+            },
+            {
+                "children": [],
+                "depends_on": "SECURE_BOOT && (IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32S3)",
+                "help": "If this option is set, ROM bootloader will revoke the public key digest burned in efuse block\nif it fails to verify the signature of software bootloader with it.\nRevocation of keys does not happen when enabling secure boot. Once secure boot is enabled,\nkey revocation checks will be done on subsequent boot-up, while verifying the software bootloader\n\nThis feature provides a strong resistance against physical attacks on the device.\n\nNOTE: Once a digest slot is revoked, it can never be used again to verify an image\nThis can lead to permanent bricking of the device, in case all keys are revoked\nbecause of signature verification failure.",
+                "id": "SECURE_BOOT_ENABLE_AGGRESSIVE_KEY_REVOKE",
+                "name": "SECURE_BOOT_ENABLE_AGGRESSIVE_KEY_REVOKE",
+                "range": null,
+                "title": "Enable Aggressive key revoke strategy",
+                "type": "bool"
             },
             {
                 "children": [
@@ -6970,6 +6990,16 @@
                             {
                                 "children": [],
                                 "depends_on": "BT_BLUEDROID_ENABLED",
+                                "help": "Bluetooth Device name length shall be no larger than 248 octets, If the broadcast data cannot contain\nthe complete device name, then only the shortname will be displayed, the rest parts that can't fit in\nwill be truncated.",
+                                "id": "BT_MAX_DEVICE_NAME_LEN",
+                                "name": "BT_MAX_DEVICE_NAME_LEN",
+                                "range": null,
+                                "title": "length of bluetooth device name",
+                                "type": "int"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "BT_BLUEDROID_ENABLED",
                                 "help": "This enables controller RPA list function.\nFor ESP32, ESP32 only support network privacy mode. If this option is enabled, ESP32 will only accept\nadvertising packets from peer devices that contain private address, HW will not receive the advertising\npackets contain identity address after IRK changed. If this option is disabled, address resolution will\nbe performed in the host, so the functions that require controller to resolve address in the white list\ncannot be used. This option is disabled by default on ESP32, please enable or disable this option according\nto your own needs.\n\nFor ESP32C3 and esp32s3, devices support network privacy mode and device privacy mode, users can switch the\ntwo modes according to their own needs. So this option is enabled by default.",
                                 "id": "BT_BLE_RPA_SUPPORTED",
                                 "name": "BT_BLE_RPA_SUPPORTED",
@@ -11064,6 +11094,16 @@
                             },
                             {
                                 "children": [],
+                                "depends_on": "IDF_TARGET_ESP32C3 && <choice ESP_CONSOLE_UART>",
+                                "help": null,
+                                "id": "ESP_CONSOLE_USB_SERIAL_JTAG",
+                                "name": "ESP_CONSOLE_USB_SERIAL_JTAG",
+                                "range": null,
+                                "title": "USB Serial/JTAG Controller",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
                                 "depends_on": "<choice ESP_CONSOLE_UART>",
                                 "help": null,
                                 "id": "ESP_CONSOLE_UART_CUSTOM",
@@ -11084,7 +11124,7 @@
                             }
                         ],
                         "depends_on": null,
-                        "help": "Select where to send console output (through stdout and stderr).\n\n- Default is to use UART0 on pre-defined GPIOs.\n- If \"Custom\" is selected, UART0 or UART1 can be chosen,\n  and any pins can be selected.\n- If \"None\" is selected, there will be no console output on any UART, except\n  for initial output from ROM bootloader. This ROM output can be suppressed by\n  GPIO strapping or EFUSE, refer to chip datasheet for details.\n- On chips with USB peripheral, \"USB CDC\" option redirects output to the\n  CDC port. This option uses the CDC driver in the chip ROM.\n  This option is incompatible with TinyUSB stack.",
+                        "help": "Select where to send console output (through stdout and stderr).\n\n- Default is to use UART0 on pre-defined GPIOs.\n- If \"Custom\" is selected, UART0 or UART1 can be chosen,\n  and any pins can be selected.\n- If \"None\" is selected, there will be no console output on any UART, except\n  for initial output from ROM bootloader. This ROM output can be suppressed by\n  GPIO strapping or EFUSE, refer to chip datasheet for details.\n- On chips with USB OTG peripheral, \"USB CDC\" option redirects output to the\n  CDC port. This option uses the CDC driver in the chip ROM.\n  This option is incompatible with TinyUSB stack.\n- On chips with an USB serial/JTAG debug controller, selecting the option\n  for that redirects output to the CDC/ACM (serial port emulation) component\n  of that device.",
                         "id": "component-config-common-esp-related-channel-for-console-output",
                         "name": "ESP_CONSOLE_UART",
                         "title": "Channel for console output",
@@ -12675,6 +12715,16 @@
                                     {
                                         "children": [],
                                         "depends_on": "ESP32_SUPPORT_MULTIPLE_PHY_INIT_DATA_BIN && ESP32_PHY_INIT_DATA_IN_PARTITION",
+                                        "help": "If enabled, multiple phy init data bin will embedded into app bin\nIf not enabled, multiple phy init data bin will still leave alone, and need to be flashed by users.",
+                                        "id": "ESP32_MULTIPLE_PHY_DATA_BIN_EMBEDDED",
+                                        "name": "ESP32_MULTIPLE_PHY_DATA_BIN_EMBEDDED",
+                                        "range": null,
+                                        "title": "Support embedded multiple phy init data bin to app bin",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "ESP32_SUPPORT_MULTIPLE_PHY_INIT_DATA_BIN && ESP32_PHY_INIT_DATA_IN_PARTITION",
                                         "help": "If enabled, when an error occurs while the PHY init data is updated,\nthe program will terminate and restart.\nIf not enabled, the PHY init data will not be updated when an error occurs.",
                                         "id": "ESP32_PHY_INIT_DATA_ERROR",
                                         "name": "ESP32_PHY_INIT_DATA_ERROR",
@@ -12732,6 +12782,16 @@
                         "name": "ESP32_PHY_MAC_BB_PD",
                         "range": null,
                         "title": "Power down MAC and baseband of Wi-Fi and Bluetooth when PHY is disabled",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "ESP_CONSOLE_USB_SERIAL_JTAG",
+                        "help": "When using USB Serial/JTAG controller, PHY should enable USB, otherwise log will\nnot be displayed. But working with USB, the RF performance may be affected.",
+                        "id": "ESP_PHY_ENABLE_USB",
+                        "name": "ESP_PHY_ENABLE_USB",
+                        "range": null,
+                        "title": "Enable USB when phy init",
                         "type": "bool"
                     }
                 ],
@@ -13523,6 +13583,56 @@
                         "children": [
                             {
                                 "children": [],
+                                "depends_on": "<choice FMB_PORT_TASK_AFFINITY>",
+                                "help": null,
+                                "id": "FMB_PORT_TASK_AFFINITY_NO_AFFINITY",
+                                "name": "FMB_PORT_TASK_AFFINITY_NO_AFFINITY",
+                                "range": null,
+                                "title": "No affinity",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice FMB_PORT_TASK_AFFINITY>",
+                                "help": null,
+                                "id": "FMB_PORT_TASK_AFFINITY_CPU0",
+                                "name": "FMB_PORT_TASK_AFFINITY_CPU0",
+                                "range": null,
+                                "title": "CPU0",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice FMB_PORT_TASK_AFFINITY>",
+                                "help": null,
+                                "id": "FMB_PORT_TASK_AFFINITY_CPU1",
+                                "name": "FMB_PORT_TASK_AFFINITY_CPU1",
+                                "range": null,
+                                "title": "CPU1",
+                                "type": "bool"
+                            }
+                        ],
+                        "depends_on": "!FREERTOS_UNICORE",
+                        "help": "Allows setting the core affinity of the Modbus controller task, i.e. whether the task is pinned to\nparticular CPU, or allowed to run on any CPU.",
+                        "id": "component-config-modbus-configuration-modbus-task-affinity",
+                        "name": "FMB_PORT_TASK_AFFINITY",
+                        "title": "Modbus task affinity",
+                        "type": "choice"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "FMB_PORT_TASK_AFFINITY",
+                        "name": "FMB_PORT_TASK_AFFINITY",
+                        "range": null,
+                        "title": null,
+                        "type": "hex"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [],
                                 "depends_on": "FMB_CONTROLLER_SLAVE_ID_SUPPORT",
                                 "help": "Modbus slave ID value to identify modbus device\nin the network using <Report Slave ID> command.\nMost significant byte of ID is used as short device ID and\nother three bytes used as long ID.",
                                 "id": "FMB_CONTROLLER_SLAVE_ID",
@@ -13602,33 +13712,59 @@
                         "id": "FMB_TIMER_PORT_ENABLED",
                         "name": "FMB_TIMER_PORT_ENABLED",
                         "range": null,
-                        "title": "Modbus slave stack use timer for 3.5T symbol time measurement",
+                        "title": "Modbus stack use timer for 3.5T symbol time measurement",
                         "type": "bool"
                     },
                     {
                         "children": [],
                         "depends_on": null,
-                        "help": "Modbus Timer group number that is used for timeout measurement.",
+                        "help": "Modbus slave Timer group number that is used for timeout measurement.",
                         "id": "FMB_TIMER_GROUP",
                         "name": "FMB_TIMER_GROUP",
                         "range": [
                             0,
                             1
                         ],
-                        "title": "Modbus Timer group number",
+                        "title": "Slave Timer group number",
                         "type": "int"
                     },
                     {
                         "children": [],
                         "depends_on": null,
-                        "help": "Modbus Timer Index in the group that is used for timeout measurement.",
+                        "help": "Modbus slave Timer Index in the group that is used for timeout measurement.",
                         "id": "FMB_TIMER_INDEX",
                         "name": "FMB_TIMER_INDEX",
                         "range": [
                             0,
                             1
                         ],
-                        "title": "Modbus Timer index in the group",
+                        "title": "Slave Timer index in the group",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "Modbus master Timer group number that is used for timeout measurement.",
+                        "id": "FMB_MASTER_TIMER_GROUP",
+                        "name": "FMB_MASTER_TIMER_GROUP",
+                        "range": [
+                            0,
+                            1
+                        ],
+                        "title": "Master Timer group number",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "Modbus master Timer Index in the group that is used for timeout measurement.\nNote: Modbus master and slave should have different timer index to be able to work simultaneously.",
+                        "id": "FMB_MASTER_TIMER_INDEX",
+                        "name": "FMB_MASTER_TIMER_INDEX",
+                        "range": [
+                            0,
+                            1
+                        ],
+                        "title": "Master Timer index",
                         "type": "int"
                     },
                     {
@@ -14800,7 +14936,7 @@
                             }
                         ],
                         "depends_on": null,
-                        "help": "Enable IPv6 function. If not use IPv6 function, set this option to n.\nIf disable LWIP_IPV6, not adding coap and asio component into the build.\nPlease assign them to EXCLUDE_COMPONENTS in the make or cmake file in your\nproject directory, so that the component will not be compiled.",
+                        "help": "Enable IPv6 function. If not use IPv6 function, set this option to n.\nIf disabling LWIP_IPV6 then some other components (coap and asio) will\nno longer be available.",
                         "id": "LWIP_IPV6",
                         "name": "LWIP_IPV6",
                         "range": null,
@@ -17422,6 +17558,16 @@
                         "range": null,
                         "title": "Enable NVS encryption",
                         "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SECURE_FLASH_ENC_ENABLED",
+                        "help": "Enabling this will ignore \"encrypted\" flag for NVS partitions. NVS encryption\nscheme is different than hardware flash encryption and hence it is not recommended\nto have \"encrypted\" flag for NVS partitions. This was not being checked in pre v4.3\nIDF. Hence, if you have any devices where this flag is kept enabled in partition\ntable then enabling this config will allow to have same behavior as pre v4.3 IDF.",
+                        "id": "NVS_COMPATIBLE_PRE_V4_3_ENCRYPTION_FLAG",
+                        "name": "NVS_COMPATIBLE_PRE_V4_3_ENCRYPTION_FLAG",
+                        "range": null,
+                        "title": "NVS partition encrypted flag compatible with ESP-IDF before v4.3",
+                        "type": "bool"
                     }
                 ],
                 "depends_on": null,
@@ -18702,6 +18848,16 @@
                         ],
                         "title": "Provisioning auto-stop timeout",
                         "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "BT_ENABLED",
+                        "help": "This option is applicable only when provisioning transport is BLE.",
+                        "id": "WIFI_PROV_BLE_BONDING",
+                        "name": "WIFI_PROV_BLE_BONDING",
+                        "range": null,
+                        "title": "Enable BLE bonding",
+                        "type": "bool"
                     }
                 ],
                 "depends_on": null,

@@ -1152,20 +1152,18 @@ void blizzardEventHandler(void* arg, esp_event_base_t event_base,
               break;
             }
 
-            if(EZ_Connect_Running && !EZ_Connect_Got_SSID){
-              uint8_t retVal;
-              uint8_t clear = '\0';
+            uint8_t retVal;
+            uint8_t clear = '\0';
 
-              //clear SSID
-              retVal = set_nvs_config(SSID_KEY, DATA_STRING, &clear);
-              if(retVal != SUCCESS){
-                ESP_LOGE(Tag, "Could not clear SSID in NVS from EZ Connect"); 
-                break;
-              }
-
-              ESP_LOGI(Tag, "Reset EZ Connect");
-              EZ_Connect_Needs_Reset = true;
+            //clear SSID
+            retVal = set_nvs_config(SSID_KEY, DATA_STRING, &clear);
+            if(retVal != SUCCESS){
+              ESP_LOGE(Tag, "Could not clear SSID in NVS from EZ Connect"); 
+              break;
             }
+
+            ESP_LOGI(Tag, "Reset EZ Connect");
+            EZ_Connect_Needs_Reset = true;
           }
 
         break;

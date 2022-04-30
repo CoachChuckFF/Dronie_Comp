@@ -22,6 +22,7 @@ dependencies:
   connectivity: ^3.0.3
   wifi_info_flutter: ^2.0.2
   esptouch_flutter: ^1.0.0
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_native_splash: ^1.1.8

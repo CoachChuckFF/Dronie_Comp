@@ -6,7 +6,7 @@
 	<dict>
 		<key>Info.plist</key>
 		<data>
-		Mq+wRuRJiH7IsTeur7zwrEDoks4=
+		2WH3EkzfNpYxRzEQezsUEM18s6A=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
@@ -19,6 +19,10 @@
 		<key>flutter_assets/NOTICES</key>
 		<data>
 		yaJ6GknROpdlPsXtJaRgrjaTVg0=
+		</data>
+		<key>flutter_assets/NOTICES.Z</key>
+		<data>
+		5TcT9xTbJ71sFANFIRLHW2vzrOo=
 		</data>
 		<key>flutter_assets/assets/images/.DS_Store</key>
 		<data>
@@ -50,7 +54,7 @@
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
-		5ynzHIqBRYWlbws9VToot0/AM5M=
+		qIwvZm2bg/aT2h9L3x2JeKRNsTg=
 		</data>
 		<key>flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf</key>
 		<data>
@@ -106,6 +110,17 @@
 			<key>hash2</key>
 			<data>
 			Q24JdHG0vc/9WuTrPQi4azlDHKmCGNmmv4MBCCoylNA=
+			</data>
+		</dict>
+		<key>flutter_assets/NOTICES.Z</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5TcT9xTbJ71sFANFIRLHW2vzrOo=
+			</data>
+			<key>hash2</key>
+			<data>
+			MiITRFbAe9SebsOLzmiprFbXiXG2l81W6kb3JlMv3lM=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/app_icon.png</key>
@@ -167,11 +182,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5ynzHIqBRYWlbws9VToot0/AM5M=
+			qIwvZm2bg/aT2h9L3x2JeKRNsTg=
 			</data>
 			<key>hash2</key>
 			<data>
-			9qIxiSxREWw9aKzMrHYMjNGtpTA+UJXKDbJegOgWCtE=
+			lh7WVRlFmfZpPU5F46MtGS5+E6Z/cPbofOkeAKeWxeo=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf</key>

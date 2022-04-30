@@ -1,9 +1,11 @@
 
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:doxadronie/Controllers/artnet_server.dart';
 import 'package:doxadronie/Controllers/bloc_controller.dart';
+import 'package:doxadronie/Controllers/password_controller.dart';
 import 'package:doxadronie/Models/artnet.dart';
 import 'package:doxadronie/Models/dronie_colors.dart';
 import 'package:doxadronie/Models/dronie_state.dart';
@@ -11,6 +13,7 @@ import 'package:doxadronie/Models/mac.dart';
 import 'package:doxadronie/Views/ast.dart';
 import 'package:doxadronie/Views/box.dart';
 import 'package:doxadronie/Views/dronie_logo.dart';
+import 'package:doxadronie/Views/password_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -29,6 +32,7 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
   AnimationController? _circleController;
   DoubleBLoC _circleUpdate = DoubleBLoC();
 
+  IntBLoC _directionsBloc = IntBLoC();
   IntBLoC _searchingBloc = IntBLoC();
   BoolBLoC _startSearchingBloc = BoolBLoC();
 
@@ -73,6 +77,7 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
         case AnimationStatus.completed:
           _circleController?.reset();
           _circleController?.forward();
+          _directionsBloc.add(IntUpdateEvent(_directionsBloc.state + 1));
           break;
         case AnimationStatus.forward: break;
         case AnimationStatus.reverse: break;
@@ -114,13 +119,27 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
                     bloc: _startSearchingBloc,
                     builder: (context, bool isSearching) {
                       return BlocBuilder(
-                        bloc: _searchingBloc,
-                        builder: (context, int dots) {
-                          String searching = "Searching";
-                          for(int i = 0; i < dots; i++) searching+=".";
-                          return AST(
-                            isSearching ? searching.padRight(13) : "",
-                            color: DColors.white,
+                        bloc: _directionsBloc,
+                        builder: (context, int directionsCount) {
+                          return BlocBuilder(
+                            bloc: _searchingBloc,
+                            builder: (context, int dots) {
+                              String searching = "Searching";
+                              for(int i = 0; i < dots % 4; i++) searching+=".";
+                      
+                              directionsCount %= 8;
+                              if(directionsCount == 0 && _server.devices.isEmpty){
+                                searching = "Tap Emblem to...";
+                              }
+                              if(directionsCount == 1 && _server.devices.isEmpty){
+                                searching = "Execute Capture Protocol";
+                              }
+
+                              return AST(
+                                isSearching ? searching.padRight(13) : "",
+                                color: DColors.white,
+                              );
+                            }
                           );
                         }
                       );
@@ -222,26 +241,51 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
     );
   }
 
+  void _connect(String password) {
+    _setMessage("Executing Dronie Capture Protocol.");
+    _server.connectNodes(
+      password,
+      onSuccess: (){
+        _setMessage("Captured a Dronie");
+        HapticFeedback.heavyImpact();
+        PasswordController.setPassword(password);
+      },
+      onTimeout: (){
+        _setMessage("Capture Protocol Timeout.");
+        HapticFeedback.lightImpact();
+        PasswordController.clearPassword();
+      },
+    );
+  }
+
+  void _searchOrSet() {
+    HapticFeedback.heavyImpact();
+    PasswordController.getPassword().then((pass){
+      if(pass.isEmpty){
+        PasswordPopup.getPassword(
+          context,
+          (String password) async {
+            _connect(password);
+          }
+        );
+      } else {
+        _connect(pass);
+      }
+    });
+  }
+
+  void _clearPassword() {
+    PasswordController.clearPassword();
+    _setMessage("WiFi Password Cleared.");
+  }
+
   Widget _buildLogo(){
     double width = MediaQuery.of(context).size.width;
     double bigCircle = width * 0.89;
-    double littleCircle = width * 0.6;
 
     return GestureDetector(
-      onTap: (){
-        _setMessage("Connecting Nearby Dronies...");
-
-        _server.connectNodes(
-          "destroyer",
-          onSuccess: (){
-            _setMessage("Connected a Dronie");
-          },
-          onTimeout: (){
-            _setMessage("Connection Timeout");
-          },
-        );
-        HapticFeedback.heavyImpact();
-      },
+      onTap: _searchOrSet,
+      onDoubleTap: _clearPassword,
       child: Container(
         height: bigCircle,
         child: Stack(
@@ -264,7 +308,7 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Center(child: DronieIcon())
+            Center(child: DronieIcon()),
           ]
         ),
       ),
@@ -274,6 +318,7 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         color: DColors.black,
         child: Column(
@@ -300,9 +345,6 @@ class DronieDrawer extends StatefulWidget {
 class _DronieDrawerState extends State<DronieDrawer> {
   ArtnetServer _server = ArtnetServer();
   int _colorTick = 0;
-
-  Timer? _touchMotorTimer;
-  bool _touchEnabled = false;
 
   static List<Color> _colorList = [
     Colors.red,
@@ -338,7 +380,7 @@ class _DronieDrawerState extends State<DronieDrawer> {
     );
   }
 
-  Widget _buildButton({required Color active, required Color disabled, required bool enabled, required IconData icon, String? message, required Function onTap}){
+  Widget _buildButton({required Color active, required Color disabled, required Color iconColor, required Color disabledIconColor, required bool enabled, required IconData icon, String? message, required Function onTap}){
     return GestureDetector(
       onTap: (){
         
@@ -358,7 +400,7 @@ class _DronieDrawerState extends State<DronieDrawer> {
               children: [
                 Icon(
                   icon,
-                  color: (!enabled) ? active : disabled,
+                  color: (enabled) ? iconColor : disabledIconColor,
                   size: 34,
                 ),
                 Container(width: 10),
@@ -366,14 +408,14 @@ class _DronieDrawerState extends State<DronieDrawer> {
                   child: AST(
                     message,
                     textAlign: TextAlign.center,
-                    color: (!enabled) ? active : disabled,
+                    color: (enabled) ? active : disabled,
                   ),
                 ),
               ],
             ) :
             Icon(
               icon,
-              color: (!enabled) ? active : disabled,
+              color: (enabled) ? iconColor : disabledIconColor,
               size: 34,
             ),
           )
@@ -392,6 +434,8 @@ class _DronieDrawerState extends State<DronieDrawer> {
             child: _buildButton(
               active: DColors.brightGreen,
               disabled: DColors.darkGreen,
+              iconColor: DColors.darkGreen,
+              disabledIconColor: DColors.black,
               enabled: data.state.mode == DronieMode.incognito,
               icon: Icons.airplanemode_active,
               onTap: (){
@@ -406,6 +450,8 @@ class _DronieDrawerState extends State<DronieDrawer> {
             child: _buildButton(
               active: DColors.brightGreen,
               disabled: DColors.darkGreen,
+              iconColor: DColors.darkGreen,
+              disabledIconColor: DColors.black,
               enabled: data.state.mode == DronieMode.debug,
               icon: Icons.bug_report,
               onTap: (){
@@ -420,6 +466,8 @@ class _DronieDrawerState extends State<DronieDrawer> {
             child: _buildButton(
               active: DColors.brightGreen,
               disabled: DColors.darkGreen,
+              iconColor: DColors.darkGreen,
+              disabledIconColor: DColors.black,
               enabled: data.state.mode == DronieMode.spoon,
               icon: Icons.audiotrack,
               onTap: (){
@@ -446,10 +494,13 @@ class _DronieDrawerState extends State<DronieDrawer> {
               child: _buildButton(
                 active: DColors.brightGreen,
                 disabled: DColors.darkGreen,
+                iconColor: DColors.darkGreen,
+                disabledIconColor: DColors.black,
                 enabled: data.state.mode == DronieMode.debug,
                 icon: Icons.settings,
                 onTap: (){
                   if(data.state.mode == DronieMode.debug){
+                    HapticFeedback.heavyImpact();
                     _server.sendPacket(
                       DronieCommandPacket.createTouchMotor().udpPacket, 
                       data.ip
@@ -463,10 +514,13 @@ class _DronieDrawerState extends State<DronieDrawer> {
             child: _buildButton(
               active: DColors.brightGreen,
               disabled: DColors.darkGreen,
+              iconColor: DColors.darkGreen,
+              disabledIconColor: DColors.black,
               enabled: data.state.mode == DronieMode.debug,
               icon: Icons.color_lens,
               onTap: (){
                 if(data.state.mode == DronieMode.debug){
+                  HapticFeedback.heavyImpact();
                   _server.sendPacket(
                     DronieCommandPacket.createSetLed(_colorList[_colorTick++ % _colorList.length], 0xFF).udpPacket, 
                     data.ip
@@ -479,13 +533,26 @@ class _DronieDrawerState extends State<DronieDrawer> {
             child: _buildButton(
               active: DColors.red,
               disabled: DColors.darkGreen,
+              iconColor: DColors.darkGreen,
+              disabledIconColor: DColors.black,
               enabled: data.state.mode == DronieMode.debug,
               icon: Icons.clear_rounded,
               onTap: (){
                 if(data.state.mode == DronieMode.debug){
-                  _server.sendPacket(
-                    DronieCommandPacket.createFactoryReset().udpPacket, 
-                    data.ip
+                  HapticFeedback.heavyImpact();
+                  FactoryResetPopup.factoryReset(
+                    context, 
+                    () async {
+                      _server.sendPacket(
+                        DronieCommandPacket.createFactoryReset().udpPacket, 
+                        data.ip
+                      );
+                      Future.delayed(Duration(milliseconds: 89), (){
+                        _server.clearDronies();
+                        Navigator.pop(context);
+                      });
+                      HapticFeedback.heavyImpact();
+                    }
                   );
                 }
               }

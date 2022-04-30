@@ -118,9 +118,15 @@ class ArtnetServer{
     }
   }
 
+  void clearDronies(){
+    devices = {};
+  }
+
   void connectNodes(String password, {Function? onSuccess, Function? onTimeout}){
     if(ssid.isEmpty){print("Bad SSID"); return;}
     if(_connecting){print("Already Connecing"); return;}
+    print(ssid);
+    print(password);
     BlizzardEZConnectManager manager = BlizzardEZConnectManager(
       onCancel: (){print("[EZ] Cancelled");},
       onStart: (ssid, pass){print("[EZ] Started");},
@@ -218,7 +224,11 @@ class ArtnetServer{
     await wifiInfo.requestLocationServiceAuthorization();
     ssid = await wifiInfo.getWifiName() ?? "";
     bssid = await wifiInfo.getWifiBSSID() ?? "";
-    ip = InternetAddress(await wifiInfo.getWifiIP() ?? "");
+    if(ssid.isNotEmpty){
+      ip = InternetAddress(await wifiInfo.getWifiIP() ?? "");
+    } else {
+      ip = InternetAddress.anyIPv4;
+    }
   }
 }
 

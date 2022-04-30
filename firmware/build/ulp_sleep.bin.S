@@ -1,4 +1,4 @@
-/* * Data converted from /Users/drkrueger/Work/Dronies/firmware/build/esp-idf/main/ulp_sleep/ulp_sleep.bin
+/* * Data converted from /Users/drkrueger/Work/Solana/Dronies/firmware/build/esp-idf/main/ulp_sleep/ulp_sleep.bin
  */
 .data
 .section .rodata.embedded

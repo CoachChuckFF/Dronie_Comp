@@ -1,4 +1,4 @@
-/* * Data converted from /Users/drkrueger/Work/Dronies/firmware/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /Users/drkrueger/Work/Solana/Dronies/firmware/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

@@ -42,7 +42,7 @@ rule ASM_EXECUTABLE_LINKER__ulp_sleep_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/local/Cellar/cmake/3.20.1/bin/cmake --regenerate-during-build -S/Users/drkrueger/esp/esp-idf/components/ulp/cmake -B/Users/drkrueger/Work/Dronies/firmware/build/esp-idf/main/ulp_sleep
+  command = /usr/local/Cellar/cmake/3.20.1/bin/cmake --regenerate-during-build -S/Users/drkrueger/esp/esp-idf/components/ulp/cmake -B/Users/drkrueger/Work/Solana/Dronies/firmware/build/esp-idf/main/ulp_sleep
   description = Re-running CMake...
   generator = 1
 

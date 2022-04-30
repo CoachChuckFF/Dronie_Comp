@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/drkrueger/Work/Dronies/firmware/build/esp-idf/main/ulp_sleep/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/drkrueger/Work/Solana/Dronies/firmware/build/esp-idf/main/ulp_sleep/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
